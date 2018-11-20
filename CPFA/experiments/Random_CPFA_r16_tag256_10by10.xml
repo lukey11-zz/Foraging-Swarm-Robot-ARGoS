@@ -187,7 +187,7 @@
   <!-- * Visualization * -->
   <!-- ****************** -->
 
-
+<!--
   <visualization>
 
 <qt-opengl>
@@ -198,5 +198,5 @@
     </qt-opengl>
 
   </visualization>
-
+-->
 </argos-configuration>
