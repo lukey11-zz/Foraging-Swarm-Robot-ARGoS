@@ -609,10 +609,10 @@ void CPFA_controller::SetHoldingFood() {
                                      startTime = SimulationTick();
 				   //distribute a new food 
 			         argos::CVector2 placementPosition;
-			         placementPosition.Set(LoopFunctions->FoodList[i].GetX()+RNG->Gaussian(0.25, 0.5), LoopFunctions->FoodList[i].GetY()+RNG->Gaussian(0.25, 0.5));
+			         placementPosition.Set(LoopFunctions->FoodList[i].GetX()+RNG->Gaussian(2.5, 5), LoopFunctions->FoodList[i].GetY()+RNG->Gaussian(2.5, 5));
 			          
 			         while(LoopFunctions->IsOutOfBounds(placementPosition, 1, 1)){
-			            placementPosition.Set(GetPosition().GetX()+RNG->Gaussian(0.25, 0.5), GetPosition().GetY()+RNG->Gaussian(0.25, 0.5));
+			            placementPosition.Set(GetPosition().GetX()+RNG->Gaussian(2.5, 5), GetPosition().GetY()+RNG->Gaussian(2.5, 5));
 			         }
 			         newFoodList.push_back(placementPosition);
 					 newFoodColoringList.push_back(LoopFunctions->FoodColoringList[i]);
