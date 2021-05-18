@@ -137,6 +137,7 @@ class CPFA_loop_functions : public argos::CLoopFunctions
 		void RandomFoodDistribution();
 		void ClusterFoodDistribution();
 		void PowerLawFoodDistribution();
+		int SetResourceStatus(); //set resource state
 		void GetResourceStatus(); //get resource state
 		void ResourceTimers(); //set resource state timers
                 bool IsOutOfBounds(argos::CVector2 p, size_t length, size_t width);
