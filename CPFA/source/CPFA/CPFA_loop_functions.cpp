@@ -181,7 +181,7 @@ void CPFA_loop_functions::PreStep() {
 
 	   if(GetSpace().GetSimulationClock() > ResourceDensityDelay) {
         for(size_t i = 0; i < FoodColoringList.size(); i++) {
-            FoodColoringList[i] = argos::CColor::BLACK;
+            FoodColoringList[i] = SetColor(SetResourceStatus());
         }
 	   }
  
@@ -351,18 +351,17 @@ int CPFA_loop_functions::SetResourceStatus(){
 
         int num = rand() % 101;
 
-        //if num between 1-75, return 1 for GREEN
-        if(num >= 1 && num <= 75){
-                return 1;
-        }
-        //if num over 75, return 2 for RED
-        else{
-                return 2;
-        }
+        if(num >= 1 && num <= 20)   	return 1; //Incubation period - RED
+        else if(num>=21 && num <=40)    return 2; //Transmission time - GREEN
+		else if(num >=41 && num <=60)	return 3; //Recovery time - YELLOW
+		else if(num >=61 && num >= 80)	return 4; //Susceptibility time - ORANGE
+		else	return 5; //Expiration time	- BLACK
+
 }
 
 //get status of resources
 void CPFA_loop_functions::GetResourceStatus(){
+
 
 }
 
@@ -371,10 +370,21 @@ void CPFA_loop_functions::ResourceTimers(){
 
 }
 
+argos::CColor CPFA_loop_functions::SetColor(int num){
+	switch(num){
+		case 1: return argos::CColor::RED; break;
+		case 2: return argos::CColor::GREEN; break;
+		case 3: return argos::CColor::YELLOW; break;
+		case 4: return argos::CColor::ORANGE; break;
+		default: return argos::CColor::BLACK; break;
+	}
+}
+
 void CPFA_loop_functions::RandomFoodDistribution() {
 	FoodList.clear();
         FoodColoringList.clear();
 	argos::CVector2 placementPosition;
+
 
 	for(size_t i = 0; i < FoodItemCount; i++) {
 		placementPosition.Set(RNG->Uniform(ForageRangeX), RNG->Uniform(ForageRangeY));
@@ -384,7 +394,8 @@ void CPFA_loop_functions::RandomFoodDistribution() {
 		}
 
 		FoodList.push_back(placementPosition);
-		FoodColoringList.push_back(argos::CColor::BLACK);
+		FoodColoringList.push_back(SetColor(SetResourceStatus()));
+		}
 	}
 }
 

@@ -112,9 +112,14 @@ class CPFA_loop_functions : public argos::CLoopFunctions
 		argos::Real NestElevation;
 		argos::Real SearchRadiusSquared;
 
+		/* Create an object named FoodInfo, storing infornmation on food, color, time */
+		class FoodInfo{
+			argos::CVector2 foodPosition;
+			argos::CColor foodColor;
+			int curTime;
+		};
 		/* list variables for food & pheromones */
-		std::vector<argos::CVector2> FoodList;
-		std::vector<argos::CColor>   FoodColoringList;
+		std::vector<FoodInfo> FoodList;
 		vector<argos::CVector2> CollectedFoodList;
                 map<string, argos::CVector2> FidelityList; 
 		std::vector<Pheromone>   PheromoneList; 
@@ -122,6 +127,7 @@ class CPFA_loop_functions : public argos::CLoopFunctions
 		argos::CRange<argos::Real>   ForageRangeX;
 		argos::CRange<argos::Real>   ForageRangeY;
   
+
                 Real   CollisionTime;
                 size_t currCollisionTime; 
                 size_t lastCollisionTime; 
@@ -137,10 +143,11 @@ class CPFA_loop_functions : public argos::CLoopFunctions
 		void RandomFoodDistribution();
 		void ClusterFoodDistribution();
 		void PowerLawFoodDistribution();
+		argos::CColor SetColor(int);
 		int SetResourceStatus(); //set resource state
 		void GetResourceStatus(); //get resource state
 		void ResourceTimers(); //set resource state timers
-                bool IsOutOfBounds(argos::CVector2 p, size_t length, size_t width);
+        bool IsOutOfBounds(argos::CVector2 p, size_t length, size_t width);
 		bool IsCollidingWithNest(argos::CVector2 p);
 		bool IsCollidingWithFood(argos::CVector2 p);
 		double score;
