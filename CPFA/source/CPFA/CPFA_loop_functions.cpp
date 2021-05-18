@@ -347,6 +347,30 @@ void CPFA_loop_functions::SetFoodDistribution() {
 	}
 }
 
+int CPFA_loop_functions::SetResourceStatus(){
+
+        int num = rand() % 101;
+
+        //if num between 1-75, return 1 for GREEN
+        if(num >= 1 && num <= 75){
+                return 1;
+        }
+        //if num over 75, return 2 for RED
+        else{
+                return 2;
+        }
+}
+
+//get status of resources
+void CPFA_loop_functions::GetResourceStatus(){
+
+}
+
+//get timer on resources
+void CPFA_loop_functions::ResourceTimers(){
+
+}
+
 void CPFA_loop_functions::RandomFoodDistribution() {
 	FoodList.clear();
         FoodColoringList.clear();
