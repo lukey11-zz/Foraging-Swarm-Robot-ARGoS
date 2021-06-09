@@ -3,7 +3,8 @@
 CPFA_loop_functions::CPFA_loop_functions() :
 	RNG(argos::CRandom::CreateRNG("argos")),
         SimTime(0), //qilu 09/13/2016
-	MaxSimTime(3600 * GetSimulator().GetPhysicsEngine("dyn2d").GetInverseSimulationClockTick()),
+	//MaxSimTime(3600 * GetSimulator().GetPhysicsEngine("default").GetInverseSimulationClockTick()),
+     MaxSimTime(0), //qilu 05/04/2021
         CollisionTime(0), 
         lastNumCollectedFood(0),
         currNumCollectedFood(0),
@@ -338,7 +339,7 @@ void CPFA_loop_functions::PostExperiment() {
         //travelSearchTimeDataOutput<<"Traveling time, Searching time"<<endl;
         
         
-        unsigned int ticks_per_second = GetSimulator().GetPhysicsEngine("Default").GetInverseSimulationClockTick();
+        unsigned int ticks_per_second = GetSimulator().GetPhysicsEngine("dyn2d").GetInverseSimulationClockTick();
         argos::CSpace::TMapPerType& footbots = GetSpace().GetEntitiesByType("foot-bot");
          
         for(argos::CSpace::TMapPerType::iterator it = footbots.begin(); it != footbots.end(); it++) {
@@ -786,7 +787,7 @@ double CPFA_loop_functions::getRateOfPheromoneDecay() {
 }
 
 argos::Real CPFA_loop_functions::getSimTimeInSeconds() {
-	int ticks_per_second = GetSimulator().GetPhysicsEngine("Default").GetInverseSimulationClockTick();
+	int ticks_per_second = GetSimulator().GetPhysicsEngine("dyn2d").GetInverseSimulationClockTick();
 	float sim_time = GetSpace().GetSimulationClock();
 	return sim_time/ticks_per_second;
 }
