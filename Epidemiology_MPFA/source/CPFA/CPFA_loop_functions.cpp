@@ -436,7 +436,7 @@ argos::CColor CPFA_loop_functions::GetFloorColor(const argos::CVector2 &c_pos_on
 }
 
 
-void CPFA_loop_functions::UpdateFoodStatus(); //qilu 05/11/2021
+void CPFA_loop_functions::UpdateFoodStatus() //qilu 05/11/2021
 {
     
 }
