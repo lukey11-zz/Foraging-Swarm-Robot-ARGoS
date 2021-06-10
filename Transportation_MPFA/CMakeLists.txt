@@ -35,19 +35,37 @@ endif()
 
 # Deactivate RPATH for MacOSX.
 if (APPLE)
+  option(ASAN "Use Clang Address Sanitizer in Debug builds")
+  if(ASAN)
+    # Add address sanitizer support for CLang
+    set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -fsanitize=address -fno-optimize-sibling-calls -fno-omit-frame-pointer")
+    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fsanitize=address -fno-optimize-sibling-calls -fno-omit-frame-pointer")
+    set(CMAKE_MODULE_LINKER_FLAGS_DEBUG "${CMAKE_MODULE_LINKER_FLAGS_DEBUG} -fsanitize=address")
+    set(CMAKE_SHARED_LINKER_FLAGS_DEBUG "${CMAKE_MODULE_LINKER_FLAGS_DEBUG} -fsanitize=address")
+    set(CMAKE_EXE_LINKER_FLAGS_DEBUG "${CMAKE_MODULE_LINKER_FLAGS_DEBUG} -fsanitize=address")
+  endif(ASAN)
+endif(APPLE)
+
+# Deactivate RPATH for MacOSX
 set(CMAKE_MACOSX_RPATH 0)
-endif()
 
 # Set the path where CMake will find additional scripts.
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_SOURCE_DIR}/cmake)
+set(CMAKE_MODULE_PATH $ENV{CMAKE_MODULE_PATH} ${CMAKE_SOURCE_DIR}/cmake)
 
 # Find the ARGoS package.
 find_package(PkgConfig)
 pkg_check_modules(ARGOS REQUIRED argos3_simulator)
+set(ARGOS_PREFIX ${ARGOS_PREFIX} CACHE INTERNAL "")
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${ARGOS_PREFIX}/share/argos3/cmake)
 
 # Check for required libraries to compile code depending on Qt and OpenGL.
 include(ARGoSCheckQTOpenGL)
+
+# Look for the (optional) galib library
+find_package(GALIB)
+if(GALIB_FOUND)
+  include_directories(${GALIB_INCLUDE_DIRS})
+endif(GALIB_FOUND)
 
 # Find the ARGoS package
 find_package(PkgConfig)
