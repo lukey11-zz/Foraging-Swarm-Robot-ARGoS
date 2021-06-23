@@ -365,9 +365,29 @@ void CPFA_loop_functions::GetResourceStatus(){
 
 }
 
-//get timer on resources
-void CPFA_loop_functions::ResourceTimers(){
+//get timer on resources, returns 0 if time for resource to change state 
+int CPFA_loop_functions::ResourceTimers(double startTime, FoodInfo item){
 
+	switch(item.foodColor){
+		case argos::CColor::RED:
+			if(item.curTime > (2 * startTime)){
+				return 0;
+			}
+		case argos::CColor::GREEN:
+			if(item.curTime > (5 * startTime)){
+				return 0;
+			}
+		case argos::CColor::YELLOW:
+			if(item.curTime > (4 * startTime)){
+				return 0;
+			}
+		case argos::CColor::ORANGE:
+			if(item.curTime > (3 * startTime)){
+				return 0;
+			}
+		default:
+			return 1;
+	}
 }
 
 argos::CColor CPFA_loop_functions::SetColor(int num){
@@ -382,7 +402,7 @@ argos::CColor CPFA_loop_functions::SetColor(int num){
 
 void CPFA_loop_functions::RandomFoodDistribution() {
 	FoodList.clear();
-        FoodColoringList.clear();
+    FoodColoringList.clear();
 	argos::CVector2 placementPosition;
 
 
