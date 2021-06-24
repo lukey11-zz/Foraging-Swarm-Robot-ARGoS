@@ -347,6 +347,16 @@ void CPFA_loop_functions::SetFoodDistribution() {
 	}
 }
 
+void CPFA_loop_functions::InitInfectedFood(int num){
+	for(size_t i=0; i< num; i++){
+        
+		argos::Real     random   = RNG->Uniform(argos::CRange<argos::Real>(0.0, FoodList.size()));
+        FoodList[random].FoodStatus = 1;
+        FoodList[random].FoodColor = CColor::RED;
+        FoodList[random].FoodTimer = getSimTimeInSeconds();//qilu 05/10/2021
+    }
+}
+
 int CPFA_loop_functions::SetResourceStatus(){
 
         int num = rand() % 101;

@@ -114,9 +114,10 @@ class CPFA_loop_functions : public argos::CLoopFunctions
 
 		/* Create an object named FoodInfo, storing infornmation on food, color, time */
 		class FoodInfo{
-			argos::CVector2 foodPosition;
-			argos::CColor foodColor;
-			int curTime;
+			argos::CVector2 FoodPosition;
+			argos::CColor FoodColor;
+			int foodStatus;
+			argos::Real FoodTimer;
 		};
 		/* list variables for food & pheromones */
 		std::vector<FoodInfo> FoodList;
