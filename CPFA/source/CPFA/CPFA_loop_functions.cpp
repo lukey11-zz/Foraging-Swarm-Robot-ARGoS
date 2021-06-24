@@ -147,7 +147,6 @@ void CPFA_loop_functions::Reset() {
    
     FoodList.clear();
     CollectedFoodList.clear();
-    FoodColoringList.clear();
 	PheromoneList.clear();
 	FidelityList.clear();
     TargetRayList.clear();
@@ -180,8 +179,8 @@ void CPFA_loop_functions::PreStep() {
 	   UpdatePheromoneList();
 
 	   if(GetSpace().GetSimulationClock() > ResourceDensityDelay) {
-        for(size_t i = 0; i < FoodColoringList.size(); i++) {
-            FoodColoringList[i] = SetColor(SetResourceStatus());
+        for(size_t i = 0; i < FoodList.size(); i++) {
+            FoodList[i].FoodColor = SetColor(SetResourceStatus());
         }
 	   }
  
@@ -412,7 +411,6 @@ argos::CColor CPFA_loop_functions::SetColor(int num){
 
 void CPFA_loop_functions::RandomFoodDistribution() {
 	FoodList.clear();
-    FoodColoringList.clear();
 	argos::CVector2 placementPosition;
 
 
@@ -423,8 +421,8 @@ void CPFA_loop_functions::RandomFoodDistribution() {
 			placementPosition.Set(RNG->Uniform(ForageRangeX), RNG->Uniform(ForageRangeY));
 		}
 
-		FoodList.push_back(placementPosition);
-		FoodColoringList.push_back(SetColor(SetResourceStatus()));
+		FoodList.FoodPosition.push_back(placementPosition);
+		FoodList[FoodList.size()-1].FoodColor=SetColor(SetResourceStatus));
 		}
 	}
 }
@@ -462,8 +460,8 @@ void CPFA_loop_functions::ClusterFoodDistribution() {
 				AddEntity(*b);
 				*/
 
-				FoodList.push_back(placementPosition);
-				FoodColoringList.push_back(argos::CColor::BLACK);
+				FoodList.FoodPosition.push_back(placementPosition);
+				FoodList[FoodList.size()-1].FoodColor=argos::CColor::BLACK;
 				placementPosition.SetX(placementPosition.GetX() + foodOffset);
 			}
 
@@ -475,8 +473,7 @@ void CPFA_loop_functions::ClusterFoodDistribution() {
 
 
 void CPFA_loop_functions::PowerLawFoodDistribution() {
- FoodList.clear();
-    FoodColoringList.clear();
+ 	FoodList.clear();
 	argos::Real foodOffset     = 3.0 * FoodRadius;
 	size_t      foodPlaced     = 0;
 	size_t      powerLawLength = 1;
@@ -555,8 +552,8 @@ void CPFA_loop_functions::PowerLawFoodDistribution() {
 			for(size_t j = 0; j < clusterSides[h]; j++) {
 				for(size_t k = 0; k < clusterSides[h]; k++) {
 					foodPlaced++;
-					FoodList.push_back(placementPosition);
-					FoodColoringList.push_back(argos::CColor::BLACK);
+					FoodList.FoodPosition.push_back(placementPosition);
+					FoodList[FoodList.size()-1].FoodColor=argos::CColor::BLACK;
 					placementPosition.SetX(placementPosition.GetX() + foodOffset);
                     if (foodPlaced == singleClusterCount + h * otherClusterCount) break;
 				}
@@ -619,7 +616,7 @@ bool CPFA_loop_functions::IsCollidingWithFood(argos::CVector2 p) {
 	argos::Real FRPB_squared = foodRadiusPlusBuffer * foodRadiusPlusBuffer;
 
 	for(size_t i = 0; i < FoodList.size(); i++) {
-		if((p - FoodList[i]).SquareLength() < FRPB_squared) return true;
+		if((p - FoodList[i].FoodPosition).SquareLength() < FRPB_squared) return true;
 	}
 
 	return false;

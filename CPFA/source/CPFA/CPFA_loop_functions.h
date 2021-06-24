@@ -116,7 +116,7 @@ class CPFA_loop_functions : public argos::CLoopFunctions
 		class FoodInfo{
 			argos::CVector2 FoodPosition;
 			argos::CColor FoodColor;
-			int foodStatus;
+			int FoodStatus;
 			argos::Real FoodTimer;
 		};
 		/* list variables for food & pheromones */
