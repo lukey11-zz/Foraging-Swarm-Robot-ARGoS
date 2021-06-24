@@ -612,12 +612,11 @@ void CPFA_controller::SetHoldingFood() {
 		// No, the iAnt isn't holding food. Check if we have found food at our
 		// current position and update the food list if we have.
 
-		    std::vector<argos::CVector2> newFoodList;
-		    std::vector<argos::CColor> newFoodColoringList;
+		    std::vector<FoodInfo> newFoodList;
 		    size_t i = 0, j = 0;
       //if(CPFA_state != RETURNING){
 		         for(i = 0; i < LoopFunctions->FoodList.size(); i++) {
-			            if((GetPosition() - LoopFunctions->FoodList[i]).SquareLength() < FoodDistanceTolerance ) {
+			            if((GetPosition() - LoopFunctions->FoodList[i].FoodPosition).SquareLength() < FoodDistanceTolerance ) {
 		          // We found food! Calculate the nearby food density.
 	        	             isHoldingFood = true;
 		                     CPFA_state = SURVEYING;
@@ -631,22 +630,21 @@ void CPFA_controller::SetHoldingFood() {
 			         while(LoopFunctions->IsOutOfBounds(placementPosition, 1, 1)){
 			             placementPosition.Set(RNG->Uniform(ForageRangeX), RNG->Uniform(ForageRangeY));
 			         }
-			         newFoodList.push_back(placementPosition);
-					 newFoodColoringList.push_back(LoopFunctions->FoodColoringList[i]);
+					 //push a new Food Info() Food Color, Food Status, Food Timer) at the end of the list
+					 newFoodList.push_back(LoopFunctions->FoodList[i]);  //JL 06/21/2021
+			         newFoodList.back().FoodPosition=placementPosition; //JL 06/21/2021
                     LoopFunctions->increaseNumDistributedFoodByOne(); //the total number of cubes in the arena should be updated. qilu 11/15/2018
 					 //end
                                      break;
 			             } else {
                       //Return this unfound-food position to the list
                             newFoodList.push_back(LoopFunctions->FoodList[i]);
-                            newFoodColoringList.push_back(LoopFunctions->FoodColoringList[i]);
                          }
                  }
       //}
       if(j>0){
           for(; j < LoopFunctions->FoodList.size(); j++) {
               newFoodList.push_back(LoopFunctions->FoodList[j]);
-              newFoodColoringList.push_back(LoopFunctions->FoodColoringList[j]);
           }
       }
    
@@ -655,7 +653,7 @@ void CPFA_controller::SetHoldingFood() {
          //SetIsHeadingToNest(true);
          //SetTarget(LoopFunctions->NestPosition);
          LoopFunctions->FoodList = newFoodList;
-         LoopFunctions->FoodColoringList = newFoodColoringList; //qilu 09/12/2016
+        // LoopFunctions->FoodColoringList = newFoodColoringList; //qilu 09/12/2016
          SetLocalResourceDensity();
       }
 	}
@@ -701,7 +699,7 @@ void CPFA_controller::SetLocalResourceDensity() {
 
 		   if(distance.SquareLength() < LoopFunctions->SearchRadiusSquared*2) {
 			      ResourceDensity++;
-			      LoopFunctions->FoodColoringList[i] = argos::CColor::ORANGE;
+			      LoopFunctions->FoodList[i].FoodColor = argos::CColor::ORANGE; //JL 06/21/2021
 			      LoopFunctions->ResourceDensityDelay = SimulationTick() + SimulationTicksPerSecond() * 10;
 		   }
 	}

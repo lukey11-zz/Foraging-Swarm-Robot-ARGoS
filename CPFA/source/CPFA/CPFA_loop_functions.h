@@ -66,6 +66,7 @@ class CPFA_loop_functions : public argos::CLoopFunctions
 		double getRateOfLayingPheromone();
 		double getRateOfPheromoneDecay();
 
+
 	protected:
 
 		void setScore(double s);
@@ -112,7 +113,7 @@ class CPFA_loop_functions : public argos::CLoopFunctions
 		argos::Real NestElevation;
 		argos::Real SearchRadiusSquared;
 
-		/* Create an object named FoodInfo, storing infornmation on food, color, time */
+	/* Create an object named FoodInfo, storing infornmation on food, color, time */
 		class FoodInfo{
 			argos::CVector2 FoodPosition;
 			argos::CColor FoodColor;

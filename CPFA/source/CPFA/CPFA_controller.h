@@ -37,7 +37,16 @@ class CPFA_controller : public BaseController {
   size_t      GetTravelingTime();//qilu 09/26/2016
   string      GetStatus();//qilu 09/26/2016
   size_t      startTime;//qilu 09/26/2016
-        
+
+  //JL 06/21/2021
+  /* Create an object named FoodInfo, storing infornmation on food, color, time */
+		class FoodInfo{
+			argos::CVector2 FoodPosition;
+			argos::CColor FoodColor;
+			int FoodStatus;
+			argos::Real FoodTimer;
+		};
+    
 
 	private:
   string 			controllerID;//qilu 07/26/2016
