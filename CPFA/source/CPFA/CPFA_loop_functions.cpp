@@ -352,7 +352,7 @@ void CPFA_loop_functions::InitInfectedFood(int num){
 		argos::Real     random   = RNG->Uniform(argos::CRange<argos::Real>(0.0, FoodList.size()));
         FoodList[random].FoodStatus = 1;
         FoodList[random].FoodColor = CColor::RED;
-        FoodList[random].FoodTimer = getSimTimeInSeconds();//qilu 05/10/2021
+        FoodList[random].FoodTimer = getSimTimeInSeconds();
     }
 }
 
@@ -368,30 +368,33 @@ int CPFA_loop_functions::SetResourceStatus(){
 
 }
 
-//get status of resources
-void CPFA_loop_functions::GetResourceStatus(){
-
-
+//update the resource status and color
+void CPFA_loop_functions::UpdateResourceStatusandColor(){
+	for(int i=0;i<FoodList.size();i++){
+		if(ResourceTimers(FoodList[i])==0){
+			FoodList[i].FoodStatus+=1;
+			FoodList[i].FoodColor=SetColor(FoodList[i].FoodStatus);
+		}
+	}
 }
 
 //get timer on resources, returns 0 if time for resource to change state 
-int CPFA_loop_functions::ResourceTimers(double startTime, FoodInfo item){
-
-	switch(item.foodColor){
+int CPFA_loop_functions::ResourceTimers(FoodInfo item){
+	switch(item.FoodColor){
 		case argos::CColor::RED:
-			if(item.curTime > (2 * startTime)){
+			if(item.FoodTimer > (2 * curr_time_in_minutes)){
 				return 0;
 			}
 		case argos::CColor::GREEN:
-			if(item.curTime > (5 * startTime)){
+			if(item.FoodTimer > (5 * curr_time_in_minutes)){
 				return 0;
 			}
 		case argos::CColor::YELLOW:
-			if(item.curTime > (4 * startTime)){
+			if(item.FoodTimer > (4 * curr_time_in_minutes)){
 				return 0;
 			}
 		case argos::CColor::ORANGE:
-			if(item.curTime > (3 * startTime)){
+			if(item.FoodTimer > (3 * curr_time_in_minutes)){
 				return 0;
 			}
 		default:

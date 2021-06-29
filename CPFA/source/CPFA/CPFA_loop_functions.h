@@ -93,9 +93,7 @@ class CPFA_loop_functions : public argos::CLoopFunctions
 		size_t PowerRank;
                 size_t ArenaWidth;
                 size_t SimTime; 
-                Real curr_time_in_minutes; 
-                Real last_time_in_minutes; 
-  
+                Real curr_time_in_minutes;   
 		/* CPFA variables */
 		argos::Real ProbabilityOfSwitchingToSearching;
 		argos::Real ProbabilityOfReturningToNest;
@@ -147,7 +145,7 @@ class CPFA_loop_functions : public argos::CLoopFunctions
 		void PowerLawFoodDistribution();
 		argos::CColor SetColor(int);
 		int SetResourceStatus(); //set resource state
-		void GetResourceStatus(); //get resource state
+		void CPFA_loop_functions::UpdateResourceStatusandColor();
 		void ResourceTimers(); //set resource state timers
         bool IsOutOfBounds(argos::CVector2 p, size_t length, size_t width);
 		bool IsCollidingWithNest(argos::CVector2 p);
