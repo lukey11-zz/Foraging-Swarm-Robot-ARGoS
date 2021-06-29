@@ -364,7 +364,7 @@ int CPFA_loop_functions::SetResourceStatus(){
         else if(num>=21 && num <=40)    return 2; //Transmission time - GREEN
 		else if(num >=41 && num <=60)	return 3; //Recovery time - YELLOW
 		else if(num >=61 && num >= 80)	return 4; //Susceptibility time - ORANGE
-		else	return 5; //Expiration time	- BLACK
+		else	return 5; //Expiration time	- GRAY10
 
 }
 
@@ -405,7 +405,7 @@ argos::CColor CPFA_loop_functions::SetColor(int num){
 		case 2: return argos::CColor::GREEN; break;
 		case 3: return argos::CColor::YELLOW; break;
 		case 4: return argos::CColor::ORANGE; break;
-		default: return argos::CColor::BLACK; break;
+		default: return argos::CColor::GRAY10; break;
 	}
 }
 
