@@ -146,7 +146,7 @@ class CPFA_loop_functions : public argos::CLoopFunctions
 		argos::CColor SetColor(int);
 		int SetResourceStatus(); //set resource state
 		void CPFA_loop_functions::UpdateResourceStatusandColor();
-		void ResourceTimers(); //set resource state timers
+		int ResourceTimers(FoodInfo); //set resource state timers
         bool IsOutOfBounds(argos::CVector2 p, size_t length, size_t width);
 		bool IsCollidingWithNest(argos::CVector2 p);
 		bool IsCollidingWithFood(argos::CVector2 p);
