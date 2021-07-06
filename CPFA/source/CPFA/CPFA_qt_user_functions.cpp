@@ -80,9 +80,9 @@ void CPFA_qt_user_functions::DrawFood() {
 	Real x, y;
 
 	for(size_t i = 0; i < loopFunctions.FoodList.size(); i++) {
-		x = loopFunctions.FoodList[i].GetX();
-		y = loopFunctions.FoodList[i].GetY();
-		DrawCylinder(CVector3(x, y, 0.002), CQuaternion(), loopFunctions.FoodRadius, 0.025, loopFunctions.FoodColoringList[i]);
+		x = loopFunctions.FoodList[i].FoodPosition.GetX();
+		y = loopFunctions.FoodList[i].FoodPosition.GetY();
+		DrawCylinder(CVector3(x, y, 0.002), CQuaternion(), loopFunctions.FoodRadius, 0.025, loopFunctions.FoodList[i].FoodColor);
 	}
  
 	 //draw food in nests
