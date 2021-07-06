@@ -127,6 +127,8 @@ void CPFA_loop_functions::Init(argos::TConfigurationNode &node) {
    NestRadiusSquared = NestRadius*NestRadius;
 	
     SetFoodDistribution();
+	InitInfectedFood(4);
+	
   
  ForageList.clear(); 
  last_time_in_minutes=0;
