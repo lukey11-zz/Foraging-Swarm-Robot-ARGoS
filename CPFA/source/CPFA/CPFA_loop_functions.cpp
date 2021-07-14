@@ -109,7 +109,7 @@ void CPFA_loop_functions::Init(argos::TConfigurationNode &node) {
         {
             NestRadius *= sqrt(log(ArenaWidth)/log(2));
         }
-        argos::LOG<<"NestRadius="<<NestRadius<<endl;
+        argos::LOG<<"NestRadius="<<NestRadius<<endl; //how to output log message
 	   // Send a pointer to this loop functions object to each controller.
 	   argos::CSpace::TMapPerType& footbots = GetSpace().GetEntitiesByType("foot-bot");
 	   argos::CSpace::TMapPerType::iterator it;
